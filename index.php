@@ -4,8 +4,8 @@ require 'init.php';
 if (isset($_SESSION['code'])) {
     $randomString = $_SESSION['code'];
 
-    $query = $pdo->prepare("SELECT LoggedInUserId FROM Sesam WHERE SesamRandomCode = :sesamRandomCode");
-    $query->execute(array(':sesamRandomCode' => $randomString));
+    $query = $pdo->prepare("SELECT LoggedInUserId FROM Sesame WHERE SesameRandomCode = :sesameRandomCode");
+    $query->execute(array(':sesameRandomCode' => $randomString));
     $result = $query->fetch(PDO::FETCH_ASSOC);
 
     if ($result['LoggedInUserId'] !== null) { ?>
@@ -17,16 +17,19 @@ if (isset($_SESSION['code'])) {
     $randomString = rand(100000000, 999999999);
     $_SESSION['code'] = $randomString;
 
-    $query = $pdo->prepare("INSERT INTO Sesam (SesamId, SesamRandomCode) VALUES (NULL, '".$randomString."')");
+    $query = $pdo->prepare("INSERT INTO Sesame (SesameId, SesameRandomCode) VALUES (NULL, '".$randomString."')");
     $result = $query->execute();
 }
 
 // https://github.com/shostelet/phpqrcode
-QRcode::png('http://sesam.localhost/login.php?code='.$randomString, 'filename.png', QR_ECLEVEL_H, 4); // creates code image and outputs it directly into browser
+QRcode::png('http://sesame.phpgangsta.de/login.php?code='.$randomString, 'temp/filename.png', QR_ECLEVEL_H, 4);
 ?>
 
 <meta http-equiv="refresh" content="5">
 Scan this QR-Code with your smartphone and login on that page. You will be logged in
 here after successful login on the smartphone.<br/>
 <br/>
-<img src="filename.png">
+<img src="temp/filename.png"><br/>
+<br/>
+If you want to try it in your browser, open this URL:
+<a href="http://sesame.phpgangsta.de/login.php?code=<?=$randomString ?>" target="_blank">http://sesame.phpgangsta.de/login.php?code=<?=$randomString ?></a>
