@@ -22,7 +22,7 @@ if (isset($_SESSION['code'])) {
 }
 
 // https://github.com/shostelet/phpqrcode
-QRcode::png('http://sesame.phpgangsta.de/login.php?code='.$randomString, 'temp/filename.png', QR_ECLEVEL_H, 4);
+QRcode::png('https://sesame.phpgangsta.de/login.php?code='.$randomString, 'temp/filename.png', QR_ECLEVEL_H, 4);
 ?>
 
 <meta http-equiv="refresh" content="5">
@@ -32,4 +32,4 @@ here after successful login on the smartphone.<br/>
 <img src="temp/filename.png"><br/>
 <br/>
 If you want to try it in your browser, open this URL:
-<a href="http://sesame.phpgangsta.de/login.php?code=<?=$randomString ?>" target="_blank">http://sesame.phpgangsta.de/login.php?code=<?=$randomString ?></a>
+<a href="https://sesame.phpgangsta.de/login.php?code=<?=$randomString ?>" target="_blank">https://sesame.phpgangsta.de/login.php?code=<?=$randomString ?></a>
